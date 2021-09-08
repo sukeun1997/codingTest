@@ -15,6 +15,11 @@ public class Main_11866 {
         List<Integer> list_A = new ArrayList<>();
         for (int i = 1; i <= N; i++) {
             list_A.add(i);
+            deque.add(i);
+        }
+
+        for (int i = 1; i <= 5; i++) {
+            deque.poll();
         }
 
         int a = K-1;
