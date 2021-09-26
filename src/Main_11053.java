@@ -23,9 +23,9 @@ public class Main_11053 {
     }
 
     public static int Seq(int n) {
-        int maxIndex = 0;
+        int maxIndex = 1;
         for (int i = 2; i <= n; i++) {
-            for (int l = i-1; l >= 1; l--) {
+            for (int l = i; l >= 1; l--) {
                 if (list[i] > list[l]) {
                     DP[i] = Math.max(DP[i], DP[l]+1);
                 }
