@@ -1,6 +1,7 @@
 package programmers;
 
 import java.util.Arrays;
+// 프로그래머스
 
 public class level1_1 {
     public String solution(String[] seoul) {
