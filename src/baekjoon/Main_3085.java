@@ -10,73 +10,97 @@ import java.util.StringTokenizer;
 public class Main_3085 {
 
     static String list[][];
+    static boolean visited[][];
     static int N;
+    static int rx[] = new int[]{-1, 1, 0, 0};
+    static int ry[] = new int[]{0, 0, -1, 1};
+    static int max = 0;
 
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-         N = Integer.parseInt(br.readLine());
+        N = Integer.parseInt(br.readLine());
         list = new String[N][N];
-            for (int i = 0; i < N; i++) {
-                String[] s = br.readLine().split("");
-                for (int j = 0; j < N; j++) {
-                    list[i][j] = s[j];
-                }
-            }
-
-        int max = Integer.MIN_VALUE;
-        for (int i = 0; i <= N-1; i++) {
-            for (int j = 0; j <= N-1 ; j++) {
-
-                //오른쪽 swap
-                if(j < N-1) {
-                    swapNext(i, j);
-                    if (checkMax(i, j) > max) {
-                        max = checkMax(i, j);
-                    }
-                    swapNext(i, j);
-                }
-
-                // 아래쪽 스왑
-                if(i < N-1) {
-                    swapDown(i, j);
-                    if (checkMax(i, j) > max) {
-                        max = checkMax(i, j);
-                    }
-                    swapDown(i, j);
-                }
+        visited = new boolean[N][N];
+        for (int i = 0; i < N; i++) {
+            String[] s = br.readLine().split("");
+            for (int j = 0; j < N; j++) {
+                list[i][j] = s[j];
             }
         }
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                findMax(i, j);
+                start(i, j);
+            }
+        }
+
         System.out.println(max);
-
     }
 
-    private static void swapDown(int i, int j) {
-        String temp = list[i][j];
-        list[i][j] = list[i+1][j];
-        list[i+1][j] = temp;
-    }
+    private static void start(int x, int y) {
 
-    private static void swapNext(int i, int j) {
-        String temp = list[i][j];
-        list[i][j] = list[i][j + 1];
-        list[i][j + 1] = temp;
-    }
 
-    private static int checkMax(int i,int j) {
-        int row = 0, col = 0;
-        for (int k = 0; k < N ; k++) {
-            if (list[i][k].equals(list[i][j])) {
-                row += 1;
+        for (int i = 0; i < 4; i++) {
+            int nx = x - rx[i];
+            int ny = y - ry[i];
+
+            if ((nx >= 0 && nx < N) && (ny >= 0 && ny < N)) {
+                if (!list[x][y].equals(list[nx][ny])) {
+                    swap(x, y, nx, ny);
+                    findMax(nx, ny);
+                    swap(nx, ny, x, y);
+                }
             }
         }
+    }
 
-        for (int k = 0; k < N ; k++) {
-            if (list[k][j].equals(list[i][j])) {
-                col += 1;
+    private static void findMax(int nx, int ny) {
+
+        String cur = list[nx][ny];
+
+        int count = 0;
+
+        for (int i = nx; i >= 0; i--) {
+            if (!list[i][ny].equals(cur)) {
+                break;
             }
+            count++;
         }
-        return Math.max(row, col);
+
+        for (int i = nx; i < N; i++) {
+            if (!list[i][ny].equals(cur)) {
+                break;
+            }
+            count++;
+        }
+        max = Math.max(max, count-1);
+
+        count = 0;
+
+        for (int i = ny; i >= 0; i--) {
+            if (!list[nx][i].equals(cur)) {
+                break;
+            }
+            count++;
+        }
+
+        for (int i = ny; i < N; i++) {
+            if (!list[nx][i].equals(cur)) {
+                break;
+            }
+            count++;
+        }
+
+        max = Math.max(max, count-1);
+
+    }
+
+    private static void swap(int x, int y, int nx, int ny) {
+        String temp = list[x][y];
+        list[x][y] = list[nx][ny];
+        list[nx][ny] = temp;
     }
 }
