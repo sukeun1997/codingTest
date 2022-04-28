@@ -1,14 +1,12 @@
 package programmers;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * 등굣길
+ */
 public class level3_8 {
 
     public int solution(int m, int n, int[][] puddles) {
