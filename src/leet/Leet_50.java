@@ -3,16 +3,14 @@ package leet;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Spiral Matrix
- */
-public class Leet_50 {
+public class Leet_54 {
 
 
     public List<Integer> spiralOrder(int[][] matrix) {
 
         List<Integer> list = new ArrayList<>();
         findOrder(0, 0, matrix, list);
+        return list;
     }
 
     private void findOrder(int x, int y, int[][] matrix, List<Integer> list) {
