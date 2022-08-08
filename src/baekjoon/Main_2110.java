@@ -8,43 +8,50 @@ import java.util.Arrays;
 public class Main_2110 {
 
     public static void main(String[] args) throws IOException {
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        String[] s = br.readLine().split(" ");
+        String[] input = br.readLine().split(" ");
 
-        int n = Integer.valueOf(s[0]);
-        int m = Integer.valueOf(s[1]);
+        int N = Integer.parseInt(input[0]);
+        int C = Integer.parseInt(input[1]);
 
-        int arr[] = new int[n];
+        int arr[] = new int[N];
 
-        for (int i = 0; i < n; i++) {
-            arr[i] = Integer.valueOf(br.readLine());
+        for (int i = 0; i < N; i++) {
+            arr[i] = Integer.parseInt(br.readLine());
         }
 
         Arrays.sort(arr);
 
-        binarySearch(arr, m - 2, 0, arr[n - 1]);
-    }
+        long l = 1;
+        long r = arr[arr.length - 1] - arr[0] + 1;
 
-    private static int binarySearch(int[] arr, int m, int start, int end) {
+        while (l < r) {
+            long mid = l + (r - l) / 2;
 
-        int result = 1;
-        while (start <= end) {
-
-            int mid = (start + end) / 2;
-            m--;
-
-            int now = Math.abs(arr[0] - arr[mid]);
-
-            if (m == 0) {
-
-                result = now;
-            } if (arr[mid] > now) {
-
+            if (isMaxDistance(arr, C, mid)) {
+                r = mid;
+            } else {
+                l = mid + 1;
             }
         }
 
-        return result;
+        System.out.println(l - 1);
+
+
+    }
+
+    private static boolean isMaxDistance(int[] arr, int c, long mid) {
+
+        int cur = 1;
+        long sum = arr[0] + mid;
+
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] >= sum) {
+                cur++;
+                sum = arr[i] + mid;
+            }
+        }
+        return cur < c;
     }
 }
