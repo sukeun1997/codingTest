@@ -3,7 +3,7 @@ package leet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Leet_54 {
+public class Leet_50 {
 
 
     public List<Integer> spiralOrder(int[][] matrix) {
