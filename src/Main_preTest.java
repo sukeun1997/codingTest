@@ -1,6 +1,7 @@
 import java.io.FileReader;
 import java.util.*;
 import java.util.jar.JarEntry;
+import java.util.stream.Collectors;
 
 public class Main_preTest {
 
@@ -55,7 +56,7 @@ public class Main_preTest {
         }
         attack = new int[numOfAttack];
         visit = new boolean[21];
-        list = list.stream().sorted().toList();
+        list = list.stream().sorted().collect(Collectors.toList());
         go(0, frequencies, list,numOfAttack);
         System.out.println(maxAttackCount);
     }
