@@ -6,11 +6,18 @@ package programmers.level2
  */
 fun solution(numbers: IntArray): String {
 
-    return numbers.sortedWith(
+    numbers.sortedWith(
         comparator = { o1, o2 ->
             (o2.toString() + o1.toString()).compareTo((o1.toString() + o2.toString()))
         }
     ).joinToString("")
+        .let {
+            if (it[0] == '0') {
+                return "0"
+            } else {
+                return it
+            }
+        }
 }
 
 fun main() {
